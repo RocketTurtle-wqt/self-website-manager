@@ -54,9 +54,22 @@ export default {
       this.loginForm.identifyCode = numCode;
     },
     loginCheck(){
-      console.log("进入");
       if(this.loginForm.identifyCode!==this.loginForm.pictureCode){
         Swal.fire('验证码错误', 'Something went wrong!', 'error');
+      }else{
+        this.$axios({
+          url:`http://127.0.0.1:7002/login?password=${this.userkey}`,
+          withCredentials:true,
+          method:'GET'
+        }).then(xhr=>{
+          if(xhr.data===true){
+            this.$router.push('artical');
+            console.log(xhr.headers);
+            // console.log(this.$cookies.get("username"));
+          }
+        }).catch(err=>{
+          console.error(err);
+        });
       }
     }
   },

@@ -6,6 +6,9 @@ import mavonEditor from 'mavon-editor'
 import SIdentify from './components/Identify'
 import 'mavon-editor/dist/css/index.css'
 import axios from 'axios';
+import VueCookies from 'vue-cookies'
+
+Vue.use(VueCookies)
 
 Vue.prototype.$axios = axios;
 
