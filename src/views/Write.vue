@@ -6,6 +6,7 @@
 </template>
 
 <script>
+import { host } from "../config/server_config.js";
 
 export default {
   name:'Write',
@@ -27,8 +28,8 @@ export default {
       }).then((url) => {
           // 第二步.将返回的url替换到文本原位置![...](0) -> ![...](url)
           // $vm.$img2Url 详情见本页末尾
-          console.log(url);
-          this.$refs.md.$img2Url(pos, url.data);
+          console.log(host+url.data);
+          this.$refs.md.$img2Url(pos, host+url.data);
       });
     }
   }
