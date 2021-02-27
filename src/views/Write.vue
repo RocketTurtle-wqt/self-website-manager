@@ -1,7 +1,8 @@
 <template>
   <div id="write"> 
     <!-- <MarkdownPro v-model="content" on-upload-image="abc"/> -->
-    <mavon-editor ref="md" v-model="value" @imgAdd="$imgAdd"/>
+    <mavon-editor style="height:100%;" ref="md" v-model="value" @imgAdd="$imgAdd"/>
+    <el-button type="primary" :loading="loading" @click="submit">发布</el-button>
   </div>
 </template>
 
@@ -12,16 +13,17 @@ export default {
   name:'Write',
   data() {
     return {
-      value:''
+      value:'',
+      loading:false
     }
   },
   methods:{
     $imgAdd(pos, $file){
       // 第一步.将图片上传到服务器.
-      var formdata = new FormData();
+      let formdata = new FormData();
       formdata.append('image', $file);
       this.$axios({
-          url: 'http://127.0.0.1:7002/artical',
+          url: 'http://127.0.0.1:7002/picture',
           method: 'post',
           data: formdata,
           headers: { 'Content-Type': 'multipart/form-data' },
@@ -31,11 +33,25 @@ export default {
           console.log(host+url.data);
           this.$refs.md.$img2Url(pos, host+url.data);
       });
+    },
+    submit(){
+      let formdata = new FormData();
+      formdata.append('artical', this.value);
+      this.$axios({
+        url: 'http://127.0.0.1:7002/artical',
+        method: 'post',
+        data: formdata,
+        headers: { 'Content-Type': 'multipart/form-data' },
+      }).then((res) => {
+        console.log(res);
+      });
     }
   }
 }
 </script>
 
 <style scoped>
-  
+  #write{
+    height: 100%;
+  }
 </style>

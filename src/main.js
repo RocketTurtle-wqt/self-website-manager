@@ -7,15 +7,13 @@ import SIdentify from './components/Identify'
 import 'mavon-editor/dist/css/index.css'
 import axios from 'axios';
 import VueCookies from 'vue-cookies'
+import { Button } from 'element-ui';
 
 Vue.use(VueCookies)
-
 Vue.prototype.$axios = axios;
-
 Vue.use(SIdentify)
-
 Vue.use(mavonEditor)
-
+Vue.use(Button);
 Vue.config.productionTip = false
 
 new Vue({
