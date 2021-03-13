@@ -28,6 +28,7 @@
 <script>
 import Sidentify from '../components/Identify';
 import Swal from 'sweetalert2'
+import { server } from "../config/net.js"
 
 export default {
   name:'Login',
@@ -56,11 +57,15 @@ export default {
     loginCheck(){
       if(this.loginForm.identifyCode!==this.loginForm.pictureCode){
         Swal.fire('验证码错误', 'Something went wrong!', 'error');
+        this.refreshCode();
       }else{
         this.$axios({
-          url:`http://127.0.0.1:7002/login?password=${this.userkey}`,
-          withCredentials:true,
-          method:'GET'
+          url:`${server}/login`,
+          // withCredentials:true,
+          method:'GET',
+          params:{
+            password:this.userkey
+          }
         }).then(xhr=>{
           if(xhr.data===true){
             this.$router.push('artical');

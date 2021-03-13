@@ -1,20 +1,48 @@
 <template>
   <div id="write"> 
     <!-- <MarkdownPro v-model="content" on-upload-image="abc"/> -->
-    <mavon-editor style="height:100%;" ref="md" v-model="value" @imgAdd="$imgAdd"/>
+    <main class="alert_classify">
+      <el-dialog title="收货地址" :visible.sync="dialogFormVisible">
+        <el-form :model="form">
+          <el-form-item label="文章分类" :label-width="formLabelWidth">
+            <el-select v-model="form.region" placeholder="请选择活动区域">
+              <el-option label="javascript" value="shanghai"></el-option>
+              <el-option label="typescript" value="beijing"></el-option>
+            </el-select>
+          </el-form-item>
+        </el-form>
+        <div slot="footer" class="dialog-footer">
+          <el-button @click="dialogFormVisible = false">取 消</el-button>
+          <el-button type="primary" @click="dialogFormVisible = false">确 定</el-button>
+        </div>
+      </el-dialog>
+    </main>
+    <mavon-editor style="height:100%;" ref="md" @imgAdd="$imgAdd"/>
     <el-button type="primary" :loading="loading" @click="submit">发布</el-button>
   </div>
 </template>
 
 <script>
-import { host } from "../config/server_config.js";
+import { server } from "../config/net.js";
 
 export default {
   name:'Write',
   data() {
     return {
       value:'',
-      loading:false
+      loading:false,
+      dialogFormVisible: true,
+      form: {
+        name: '',
+        region: '',
+        date1: '',
+        date2: '',
+        delivery: false,
+        type: [],
+        resource: '',
+        desc: ''
+      },
+      formLabelWidth: '120px'
     }
   },
   methods:{
@@ -23,28 +51,29 @@ export default {
       let formdata = new FormData();
       formdata.append('image', $file);
       this.$axios({
-          url: 'http://127.0.0.1:7002/picture',
+          url: `${server}/picture`,
           method: 'post',
           data: formdata,
           headers: { 'Content-Type': 'multipart/form-data' },
       }).then((url) => {
           // 第二步.将返回的url替换到文本原位置![...](0) -> ![...](url)
           // $vm.$img2Url 详情见本页末尾
-          console.log(host+url.data);
-          this.$refs.md.$img2Url(pos, host+url.data);
+          console.log(server+url.data);
+          this.$refs.md.$img2Url(pos, server+url.data);
       });
     },
     submit(){
-      let formdata = new FormData();
-      formdata.append('artical', this.value);
-      this.$axios({
-        url: 'http://127.0.0.1:7002/artical',
-        method: 'post',
-        data: formdata,
-        headers: { 'Content-Type': 'multipart/form-data' },
-      }).then((res) => {
-        console.log(res);
-      });
+      this.dialogFormVisible = true
+      // let formdata = new FormData();
+      // formdata.append('artical', this.$refs.md.d_render);
+      // this.$axios({
+      //   url: `${server}/artical`,
+      //   method: 'post',
+      //   data: formdata,
+      //   headers: { 'Content-Type': 'multipart/form-data' },
+      // }).then((res) => {
+      //   console.log(res);
+      // });
     }
   }
 }
@@ -53,5 +82,15 @@ export default {
 <style scoped>
   #write{
     height: 100%;
+  }
+
+  .alert_classify{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+    z-index: 2000;
   }
 </style>
