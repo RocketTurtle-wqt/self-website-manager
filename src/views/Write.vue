@@ -1,24 +1,23 @@
 <template>
   <div id="write"> 
     <!-- <MarkdownPro v-model="content" on-upload-image="abc"/> -->
-    <main class="alert_classify">
-      <el-dialog title="收货地址" :visible.sync="dialogFormVisible">
+    <main>
+      <el-dialog title="保存位置" :visible.sync="dialogFormVisible" :append-to-body="true">
         <el-form :model="form">
-          <el-form-item label="文章分类" :label-width="formLabelWidth">
-            <el-select v-model="form.region" placeholder="请选择活动区域">
-              <el-option label="javascript" value="shanghai"></el-option>
-              <el-option label="typescript" value="beijing"></el-option>
+          <el-form-item label="文章列表" :label-width="formLabelWidth">
+            <el-select v-model="form.region" placeholder="请选择保存位置" @change="selectChange($event)">
+              <el-option v-for="(item, index) in classify" :label="item.name" :value="item.id" :key="index"></el-option>
             </el-select>
           </el-form-item>
         </el-form>
         <div slot="footer" class="dialog-footer">
           <el-button @click="dialogFormVisible = false">取 消</el-button>
-          <el-button type="primary" @click="dialogFormVisible = false">确 定</el-button>
+          <el-button type="primary" @click="submit">确 定</el-button>
         </div>
       </el-dialog>
     </main>
     <mavon-editor style="height:100%;" ref="md" @imgAdd="$imgAdd"/>
-    <el-button type="primary" :loading="loading" @click="submit">发布</el-button>
+    <el-button type="primary" :loading="loading" @click="handle">发布</el-button>
   </div>
 </template>
 
@@ -31,7 +30,7 @@ export default {
     return {
       value:'',
       loading:false,
-      dialogFormVisible: true,
+      dialogFormVisible: false,
       form: {
         name: '',
         region: '',
@@ -42,7 +41,18 @@ export default {
         resource: '',
         desc: ''
       },
-      formLabelWidth: '120px'
+      formLabelWidth: '120px',
+      classify:[
+        {
+          id: 1,
+          name: 'javascript'
+        },
+        {
+          id: 2,
+          name:'typescript'
+        }
+      ],
+      option:0
     }
   },
   methods:{
@@ -62,18 +72,30 @@ export default {
           this.$refs.md.$img2Url(pos, server+url.data);
       });
     },
-    submit(){
+    handle(){
       this.dialogFormVisible = true
-      // let formdata = new FormData();
-      // formdata.append('artical', this.$refs.md.d_render);
-      // this.$axios({
-      //   url: `${server}/artical`,
-      //   method: 'post',
-      //   data: formdata,
-      //   headers: { 'Content-Type': 'multipart/form-data' },
-      // }).then((res) => {
-      //   console.log(res);
-      // });
+    },
+    selectChange(event){
+      this.option=event;
+    },
+    submit(){
+      let formdata = new FormData();
+      const target=this.classify.filter(obj=>{
+        return obj.id===this.option;
+      })[0].name;
+      console.log(target);
+      formdata.append('artical', this.$refs.md.d_render);
+      formdata.append('classify_id', this.option);
+      formdata.append('name', target);
+      this.$axios({
+        url: `${server}/artical`,
+        method: 'post',
+        data: formdata,
+        headers: { 'Content-Type': 'multipart/form-data' },
+      }).then((res) => {
+        console.log(res);
+        this.dialogFormVisible=false;
+      });
     }
   }
 }
@@ -82,15 +104,5 @@ export default {
 <style scoped>
   #write{
     height: 100%;
-  }
-
-  .alert_classify{
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%,-50%);
-    z-index: 2000;
   }
 </style>
