@@ -7,7 +7,7 @@ import SIdentify from './components/Identify'
 import 'mavon-editor/dist/css/index.css'
 import axios from 'axios';
 import VueCookies from 'vue-cookies'
-import { Button, MenuItem, Menu, Dialog, Form, FormItem, Input, Select, Option } from 'element-ui';
+import { Button, MenuItem, Menu, Dialog, Form, FormItem, Input, Select, Option, Collapse, CollapseItem } from 'element-ui';
 
 Vue.use(VueCookies);
 Vue.prototype.$axios = axios;
@@ -22,6 +22,8 @@ Vue.use(FormItem);
 Vue.use(Input);
 Vue.use(Select);
 Vue.use(Option);
+Vue.use(Collapse);
+Vue.use(CollapseItem);
 Vue.config.productionTip = false
 
 new Vue({

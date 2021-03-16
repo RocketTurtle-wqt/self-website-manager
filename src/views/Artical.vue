@@ -11,6 +11,9 @@
         <Show></Show>
       </main>
     </div>
+    <main class="classify_alert">
+      <Classify></Classify>
+    </main>
   </div>
 </template>
 
@@ -18,13 +21,15 @@
 import Siderbar from "../components/Sidebar.vue";
 import Nav from "../components/Nav.vue";
 import Show from "../components/Show.vue";
+import Classify from '../components/Classify.vue';
 
 export default {
   name:'Artical',
   components:{
     Siderbar,
     Nav,
-    Show
+    Show,
+    Classify
   }
 }
 </script>
@@ -50,6 +55,23 @@ export default {
 
     .show{
       flex: 1;
+    }
+
+    .top{
+      height: 10%;
+      background-color: gray;
+    }
+
+    .container{
+      height: 90%;
+    }
+
+    .classify_alert{
+      background-color: blue;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%,-50%);
     }
   }
 

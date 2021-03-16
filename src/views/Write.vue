@@ -4,6 +4,9 @@
     <main>
       <el-dialog title="保存位置" :visible.sync="dialogFormVisible" :append-to-body="true">
         <el-form :model="form">
+          <el-form-item label="文章名称" :label-width="formLabelWidth">
+            <el-input v-model="form.name" autocomplete="off"></el-input>
+          </el-form-item>
           <el-form-item label="文章列表" :label-width="formLabelWidth">
             <el-select v-model="form.region" placeholder="请选择保存位置" @change="selectChange($event)">
               <el-option v-for="(item, index) in classify" :label="item.name" :value="item.id" :key="index"></el-option>
@@ -80,13 +83,9 @@ export default {
     },
     submit(){
       let formdata = new FormData();
-      const target=this.classify.filter(obj=>{
-        return obj.id===this.option;
-      })[0].name;
-      console.log(target);
       formdata.append('artical', this.$refs.md.d_render);
       formdata.append('classify_id', this.option);
-      formdata.append('name', target);
+      formdata.append('title', this.form.name);
       this.$axios({
         url: `${server}/artical`,
         method: 'post',

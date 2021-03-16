@@ -5,7 +5,9 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    loginStatus:false
+    loginStatus: false,
+    selectClassify: {},
+    showClassify: false
   },
   mutations: {
   },
