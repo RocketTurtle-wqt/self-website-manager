@@ -36,7 +36,6 @@ export default {
 
 <style scoped>
   #artical{
-    background: red;
     height: 100%;
     display: flex;
     flex-flow: column;

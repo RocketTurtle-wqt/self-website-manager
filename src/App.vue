@@ -1,6 +1,12 @@
 <template>
   <div id="app">
-    <router-view></router-view>
+    <div id="background">
+      <vue-particles color="#dedede"
+      particlesNumber="3000"></vue-particles>
+    </div>
+    <main>      
+      <router-view />
+    </main>
   </div>
 </template>
 
@@ -15,5 +21,19 @@
 
   html,body,#app{
     height: 100%;
+  }
+
+  #background{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+  }
+
+  #app>main{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
   }
 </style>
