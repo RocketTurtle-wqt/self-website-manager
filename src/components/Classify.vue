@@ -1,6 +1,6 @@
 <template>
   <div id="classify">
-    <el-dialog title="收货地址" :visible.sync="dialogFormVisible" :append-to-body="true">
+    <el-dialog title="创建分类" :visible.sync="dialogFormVisible" :append-to-body="true">
       <el-form :model="form">
         <el-form-item label="文章分类" :label-width="formLabelWidth">
           <el-input v-model="form.name" autocomplete="off"></el-input>
@@ -15,6 +15,8 @@
 </template>
 
 <script>
+import { server } from '../config/net.js';
+
 export default {
   name:"Classify",
   data() {
