@@ -14,8 +14,8 @@
           </el-form-item>
         </el-form>
         <div slot="footer" class="dialog-footer">
-          <el-button @click="dialogFormVisible = false">取 消</el-button>
-          <el-button type="primary" @click="submit">确 定</el-button>
+          <el-button @click="cancel">取 消</el-button>
+          <el-button type="primary" :loading="sure" @click="submit">确 定</el-button>
         </div>
       </el-dialog>
     </main>
@@ -33,6 +33,7 @@ export default {
     return {
       value:'',
       loading:false,
+      sure:false,
       dialogFormVisible: false,
       form: {
         name: '',
@@ -45,16 +46,7 @@ export default {
         desc: ''
       },
       formLabelWidth: '120px',
-      classify:[
-        {
-          id: 1,
-          name: 'javascript'
-        },
-        {
-          id: 2,
-          name:'typescript'
-        }
-      ],
+      classify:[],
       option:0
     }
   },
@@ -76,12 +68,14 @@ export default {
       });
     },
     handle(){
-      this.dialogFormVisible = true
+      this.dialogFormVisible = true;
+      this.loading=true;
     },
     selectChange(event){
       this.option=event;
     },
     submit(){
+      this.sure=true;
       let formdata = new FormData();
       formdata.append('artical', this.$refs.md.d_render);
       formdata.append('classify_id', this.option);
@@ -94,8 +88,25 @@ export default {
       }).then((res) => {
         console.log(res);
         this.dialogFormVisible=false;
+        this.loading=false;
+        this.sure=false;
       });
+    },
+    cancel(){
+      this.dialogFormVisible = false;
+      this.loading=false;
     }
+  },
+  mounted() {
+    this.$axios({
+      url:`${server}/classifies`,
+      // withCredentials:true,
+      method:'GET',
+    }).then(res=>{
+      this.classify=res.data;
+    }).catch(err=>{
+      console.error(err);
+    });
   }
 }
 </script>

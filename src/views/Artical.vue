@@ -58,7 +58,7 @@ export default {
 
     .top{
       height: 10%;
-      background-color: gray;
+      /* background-color: gray; */
     }
 
     .container{

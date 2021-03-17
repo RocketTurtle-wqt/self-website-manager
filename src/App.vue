@@ -1,8 +1,7 @@
 <template>
   <div id="app">
     <div id="background">
-      <vue-particles color="#dedede"
-      particlesNumber="3000"></vue-particles>
+      <vue-particles color="#dedede"></vue-particles>
     </div>
     <main>      
       <router-view />
