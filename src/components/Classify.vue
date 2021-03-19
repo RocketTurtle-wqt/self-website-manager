@@ -44,10 +44,21 @@ export default {
         method: 'post',
         data: formdata,
         headers: { 'Content-Type': 'multipart/form-data' },
-      }).then((res) => {
+      }).then(res => {
         console.log(res);
+        this.dialogFormVisible=false;
         this.$store.state.showClassify=false;
-        this.$toast.open('分类创建成功');
+        if(res.status===200){
+          this.$toast.success('创建分类成功');
+        }
+      }).catch(err=>{
+        console.log('进入catch');
+        console.log(err.response);
+        this.dialogFormVisible=false;
+        this.$store.state.showClassify=false;
+        if(err.response.status===409){
+          this.$toast.error('创建分类失败，分类已存在');
+        }
       });
     }
   },
