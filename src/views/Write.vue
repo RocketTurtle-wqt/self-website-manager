@@ -32,8 +32,8 @@ export default {
   data() {
     return {
       value:'',
-      loading:false,
       sure:false,
+      loading:false,
       dialogFormVisible: false,
       form: {
         name: '',
@@ -70,6 +70,7 @@ export default {
     handle(){
       this.dialogFormVisible = true;
       this.loading=true;
+      // this.$store.state.issueLoading=true;
     },
     selectChange(event){
       this.option=event;
@@ -88,16 +89,31 @@ export default {
       }).then((res) => {
         console.log(res);
         this.dialogFormVisible=false;
-        this.loading=false;
         this.sure=false;
+        this.$toast.open('发布成功');
       });
     },
     cancel(){
       this.dialogFormVisible = false;
-      this.loading=false;
+    }
+  },
+  watch:{
+    "dialogFormVisible":{
+      handler(newVal){
+        this.loading=newVal;
+      }
     }
   },
   mounted() {
+    // const id=this.$route.query.id; 
+    // const articals=this.$store.state.selectClassify;
+    // for(let essay in articals){
+    //   if(essay.id===id){
+    //     this.$refs.md.d_render=essay.artical;
+    //     break;
+    //   }
+    // }
+
     this.$axios({
       url:`${server}/classifies`,
       // withCredentials:true,

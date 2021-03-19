@@ -47,6 +47,7 @@ export default {
       }).then((res) => {
         console.log(res);
         this.$store.state.showClassify=false;
+        this.$toast.open('分类创建成功');
       });
     }
   },
@@ -58,7 +59,9 @@ export default {
     },
     "dialogFormVisible":{
       handler(newVal){
+        console.log("进入");
         this.$store.state.showClassify=newVal;
+        this.$store.state.issueLoading=false;
       }
     }
   }

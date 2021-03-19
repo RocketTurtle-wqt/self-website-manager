@@ -1,10 +1,19 @@
 <template>
   <div id="siderbar">
-    <el-menu default-active="0"
-             class="el-menu-vertical-demo">
+    <el-menu  class="el-menu-vertical-demo"
+              text-color="#303133"
+              active-text-color="#409EFF">
       <el-menu-item v-for="(item, index) in classify" @click="setClassify(item.id)" :index="index.toString()" :key="item.id">
         <i class="el-icon-menu"></i>
         <span slot="title">{{item.name}}</span>
+      </el-menu-item>
+    </el-menu>
+    <el-menu  class="el-menu-vertical-demo"
+              text-color="#303133"
+              active-text-color="#409EFF">
+      <el-menu-item @click="showClassify">
+        <i class="el-icon-circle-plus-outline"></i>
+        <span slot="title">创建分类</span>
       </el-menu-item>
     </el-menu>
   </div>
@@ -30,10 +39,14 @@ export default {
         }
       }).then(res=>{
         console.log(res);
+        console.log(res.data);
         this.$store.state.selectClassify=res.data;
       }).catch(err=>{
         console.error(err);
       });
+    },
+    showClassify(){
+      this.$store.state.showClassify=true;
     }
   },
   mounted(){
@@ -49,5 +62,5 @@ export default {
 </script>
 
 <style scoped>
-  
+
 </style>
