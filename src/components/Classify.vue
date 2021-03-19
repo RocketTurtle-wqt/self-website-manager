@@ -49,6 +49,8 @@ export default {
         this.dialogFormVisible=false;
         this.$store.state.showClassify=false;
         if(res.status===200){
+          console.log(res.data);
+          this.$store.state.classify.push(res.data);
           this.$toast.success('创建分类成功');
         }
       }).catch(err=>{

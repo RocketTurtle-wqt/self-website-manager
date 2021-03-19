@@ -3,7 +3,7 @@
     <el-menu  class="el-menu-vertical-demo"
               text-color="#303133"
               active-text-color="#409EFF">
-      <el-menu-item v-for="(item, index) in classify" @click="setClassify(item.id)" :index="index.toString()" :key="item.id">
+      <el-menu-item v-for="(item, index) in this.$store.state.classify" @click="setClassify(item.id)" :index="index.toString()" :key="item.id">
         <i class="el-icon-menu"></i>
         <span slot="title">{{item.name}}</span>
       </el-menu-item>
@@ -26,7 +26,7 @@ export default {
   name:"Siderbar",
   data() {
     return {
-      classify:[],
+
     }
   },
   methods:{
@@ -55,7 +55,7 @@ export default {
       method: 'GET',
     }).then((res) => {
       console.log(res);
-      this.classify=res.data;
+      this.$store.state.classify=res.data;
     });
   }
 }

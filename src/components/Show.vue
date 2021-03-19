@@ -3,11 +3,13 @@
     <el-collapse v-model="activeNames" @change="handleChange">
       <el-collapse-item v-for="(item, index) in this.$store.state.selectClassify" :title="item.title" :name="index" :key="item.id">
         <div id="mainBody">
-          <router-link :to="`/write?id=${item.id}`">编辑</router-link>
-          <el-divider direction="vertical"></el-divider>
-          <span class="delete-essay" @click="deleteArtical(item.id)">删除</span>
-          <el-divider direction="vertical"></el-divider>
-          <span>{{item.time}}</span>
+          <div>
+            <router-link :to="`/write?id=${item.id}`">编辑</router-link>
+            <el-divider direction="vertical"></el-divider>
+            <span class="delete-essay" @click="deleteArtical(item.id)">删除</span>
+            <el-divider direction="vertical"></el-divider>
+            <span>{{item.time}}</span>
+          </div>
         </div>
         <main v-html="item.artical" class="markdown-body"></main>
       </el-collapse-item>
@@ -64,7 +66,7 @@ export default {
     justify-content: flex-end;
   }
   
-  #mainBody>a{
+  #mainBody>div>a{
     color: lightblue;
   }
 
