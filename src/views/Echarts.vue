@@ -1,5 +1,5 @@
 <template>
-    <div class="chart-container">
+    <div class="chart-container contain">
         <el-row>
             <el-col :span="12">
                 <div id="chartColumn" style="width:500px; height:400px;"></div>
@@ -207,6 +207,10 @@
  
     .el-col {
         padding: 30px;
+    }
+
+    .contain{
+        overflow: scroll;
     }
 </style>
 
