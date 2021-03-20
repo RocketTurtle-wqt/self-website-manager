@@ -11,7 +11,7 @@ import VueParticles from 'vue-particles'
 import VueToast from 'vue-toast-notification';
 import 'vue-toast-notification/dist/theme-sugar.css';
 
-import { Button, MenuItem, Menu, Dialog, Form, FormItem, Input, Select, Option, Collapse, CollapseItem, Divider } from 'element-ui';
+import { Button, MenuItem, Menu, Dialog, Form, FormItem, Input, Select, Option, Collapse, CollapseItem, Divider, Row, Col } from 'element-ui';
 
 Vue.use(VueCookies);
 Vue.use(SIdentify);
@@ -23,6 +23,8 @@ let instance = Vue.$toast.open('You did it!');
 instance.dismiss();
 // Dismiss all opened toast immediately
 Vue.$toast.clear();
+Vue.use(Row);
+Vue.use(Col);
 Vue.use(Button);
 Vue.use(Menu);
 Vue.use(MenuItem);
