@@ -20,7 +20,7 @@
       </el-dialog>
     </main>
     <mavon-editor style="height:100%;" ref="md" @imgAdd="$imgAdd"/>
-    <el-button type="primary" :loading="loading" @click="handle">发布</el-button>
+    <el-button type="primary" :loading="loading" @click="handle">发布文章</el-button>
   </div>
 </template>
 
@@ -78,19 +78,25 @@ export default {
     submit(){
       this.sure=true;
       let formdata = new FormData();
+      formdata.append('markdown',this.$refs.md.d_value);
       formdata.append('artical', this.$refs.md.d_render);
       formdata.append('classify_id', this.option);
       formdata.append('title', this.form.name);
+      const id = this.$route.params.id;
       this.$axios({
-        url: `${server}/artical`,
+        url: id?`${server}/updateartical`:`${server}/artical`,
         method: 'post',
         data: formdata,
         headers: { 'Content-Type': 'multipart/form-data' },
-      }).then((res) => {
+      }).then(res => {
         console.log(res);
         this.dialogFormVisible=false;
         this.sure=false;
-        this.$toast.open('发布成功');
+        this.$toast.success(res.data);
+      }).catch(err=>{
+        this.dialogFormVisible=false;
+        this.sure=false;
+        this.$toast.error(`文章发布失败，${err.response.data}`);
       });
     },
     cancel(){
@@ -105,15 +111,6 @@ export default {
     }
   },
   mounted() {
-    // const id=this.$route.query.id; 
-    // const articals=this.$store.state.selectClassify;
-    // for(let essay in articals){
-    //   if(essay.id===id){
-    //     this.$refs.md.d_render=essay.artical;
-    //     break;
-    //   }
-    // }
-
     this.$axios({
       url:`${server}/classifies`,
       // withCredentials:true,
@@ -123,6 +120,20 @@ export default {
     }).catch(err=>{
       console.error(err);
     });
+
+    const id = this.$route.params.id;
+    if(id){
+      this.$axios({
+        url: `${server}/getartical`,
+        method: 'GET',
+        params:{
+          id
+        }
+      }).then(res => {
+        console.log(res);
+        this.$refs.md.d_value=res.data.markdown;
+      });
+    }
   }
 }
 </script>

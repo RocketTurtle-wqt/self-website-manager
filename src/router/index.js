@@ -14,16 +14,20 @@ const routes = [
   },
   {
     path: '/write',
-    component:Write
+    component: Write,
+  },
+  {
+    path: '/write/:id',
+    component: Write
   },
   {
     path: '/artical',
     component:Artical
   },
-  {
-    path: '*',
-    component:Err
-  }
+  // {
+  //   path: '*',
+  //   component:Err
+  // }
 ]
 
 const router = new VueRouter({

@@ -1,8 +1,8 @@
 <template>
   <div id="nav">
     <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal" @select="handleSelect">
-      <el-menu-item v-for="(value, index) of content" :index="index.toString()" :key="index">
-        {{value}}
+      <el-menu-item v-for="(item, index) of content" :index="index.toString()" :key="index">
+        <router-link :to="item.route">{{item.name}}</router-link>
       </el-menu-item>
     </el-menu>
   </div>
@@ -15,9 +15,22 @@ export default {
     return {
       activeIndex: '0',
       content:[
-        '文章管理',
-        'vlog',
-        '网站流量'
+        {
+          name:'文章管理',
+          route:'/artical'
+        },
+        {
+          name:'vlog',
+          route:'/vlog'
+        },
+        {
+          name:'创作文章',
+          route:'/write'
+        },
+        {
+          name:'网站流量',
+          route:'/traffic'
+        }
       ]
     };
   },

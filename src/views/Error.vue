@@ -1,5 +1,15 @@
 <template>
   <div id="error">
-    错误
+    <ErrorPage></ErrorPage>
   </div>
 </template>
+
+<script>
+export default {
+  name:'Error'
+}
+</script>
+
+<style scoped>
+  
+</style>

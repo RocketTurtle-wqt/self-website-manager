@@ -1,8 +1,8 @@
 <template>
   <div id="artical"> 
-    <nav class="top">
+    <!-- <nav class="top">
       <Nav></Nav>
-    </nav>
+    </nav> -->
     <div class="container">
       <nav class="left">
         <Siderbar></Siderbar>
@@ -19,7 +19,7 @@
 
 <script>
 import Siderbar from "../components/Sidebar.vue";
-import Nav from "../components/Nav.vue";
+// import Nav from "../components/Nav.vue";
 import Show from "../components/Show.vue";
 import Classify from '../components/Classify.vue';
 
@@ -27,7 +27,7 @@ export default {
   name:'Artical',
   components:{
     Siderbar,
-    Nav,
+    // Nav,
     Show,
     Classify
   }
@@ -56,10 +56,9 @@ export default {
       flex: 1;
     }
 
-    .top{
+    /* .top{
       height: 10%;
-      /* background-color: gray; */
-    }
+    } */
 
     .container{
       height: 90%;

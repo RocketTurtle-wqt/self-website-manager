@@ -4,10 +4,24 @@
       <vue-particles color="#dedede"></vue-particles>
     </div>
     <main>      
+      <nav class="top">
+        <Nav></Nav>
+      </nav>
       <router-view />
     </main>
   </div>
 </template>
+
+<script>
+import Nav from './components/Nav.vue';
+
+export default {
+  name:'App',
+  components:{
+    Nav
+  }
+}
+</script>
 
 <style>
   @import url(./assets/css/clear_pc.css) all;
@@ -32,7 +46,11 @@
   #app>main{
     position: absolute;
     width: 100%;
-    height: 100%;
+    height: 90%;
     z-index: 2;
+  }
+
+  .top{
+    height: 10%;
   }
 </style>

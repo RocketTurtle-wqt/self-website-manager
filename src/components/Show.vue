@@ -4,7 +4,7 @@
       <el-collapse-item v-for="(item, index) in this.$store.state.selectClassify" :title="item.title" :name="index" :key="item.id">
         <div id="mainBody">
           <div>
-            <router-link :to="`/write?id=${item.id}`">编辑</router-link>
+            <router-link :to="`/write/${item.id}`">编辑</router-link>
             <el-divider direction="vertical"></el-divider>
             <span class="delete-essay" @click="deleteArtical(item.id)">删除</span>
             <el-divider direction="vertical"></el-divider>
