@@ -19,7 +19,7 @@
 
 <script>
 import "mavon-editor/dist/css/index.css";
-import {server} from '../config/net.js';
+import {server,deleteArticalById} from '../config/net.js';
 
 export default {
   name:"show",
@@ -34,7 +34,7 @@ export default {
     },
     deleteArtical(id){
       this.$axios({
-        url: `${server}/deleteArtical`,
+        url: deleteArticalById,
         method: 'POST',
         data: {
           id

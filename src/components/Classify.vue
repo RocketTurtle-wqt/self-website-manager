@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import { server } from '../config/net.js';
+import { server,publishClassify } from '../config/net.js';
 
 export default {
   name:"Classify",
@@ -40,8 +40,8 @@ export default {
       let formdata = new FormData();
       formdata.append('name',this.form.name);
       this.$axios({
-        url: `${server}/setClassify`,
-        method: 'post',
+        url: publishClassify,
+        method: 'POST',
         data: formdata,
         headers: { 'Content-Type': 'multipart/form-data' },
       }).then(res => {

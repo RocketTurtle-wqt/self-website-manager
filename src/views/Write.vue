@@ -25,7 +25,7 @@
 </template>
 
 <script>
-import { server } from "../config/net.js";
+import { server,getArticalById,publishPicture,publishArtical,updateArticalById } from "../config/net.js";
 
 export default {
   name:'Write',
@@ -56,8 +56,8 @@ export default {
       let formdata = new FormData();
       formdata.append('image', $file);
       this.$axios({
-          url: `${server}/picture`,
-          method: 'post',
+          url:publishPicture,
+          method: 'POST',
           data: formdata,
           headers: { 'Content-Type': 'multipart/form-data' },
       }).then((url) => {
@@ -83,8 +83,11 @@ export default {
       formdata.append('classify_id', this.option);
       formdata.append('title', this.form.name);
       const id = this.$route.params.id;
+      if(id){
+        formdata.append('id',id);
+      }
       this.$axios({
-        url: id?`${server}/updateartical`:`${server}/artical`,
+        url: id?updateArticalById:publishArtical,
         method: 'post',
         data: formdata,
         headers: { 'Content-Type': 'multipart/form-data' },
@@ -124,8 +127,8 @@ export default {
     const id = this.$route.params.id;
     if(id){
       this.$axios({
-        url: `${server}/getartical`,
-        method: 'GET',
+        url:getArticalById,
+        method:'GET',
         params:{
           id
         }

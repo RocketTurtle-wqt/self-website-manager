@@ -20,7 +20,7 @@
 </template>
 
 <script>
-import { server } from '../config/net.js';
+import { server,getArticalsByClassifyId,getClassifies } from '../config/net.js';
 
 export default {
   name:"Siderbar",
@@ -32,7 +32,7 @@ export default {
   methods:{
     setClassify(classify_id){
       this.$axios({
-        url:`${server}/classify_id`,
+        url:getArticalsByClassifyId,
         method:'GET',
         params:{
           classify_id
@@ -51,7 +51,7 @@ export default {
   },
   mounted(){
     this.$axios({
-      url: `${server}/classifies`,
+      url: getClassifies,
       method: 'GET',
     }).then((res) => {
       console.log(res);

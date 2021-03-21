@@ -19,7 +19,7 @@
  
 <script>
     import * as echarts from "echarts";
-    import {server} from "../config/net.js"
+    import {server,getArticalfrequency} from "../config/net.js"
  
     export default {
         name:'Echarts',
@@ -205,7 +205,7 @@
  
         mounted: function () {
             this.$axios({
-                url:`${server}/articalfrequency`,
+                url:getArticalfrequency,
                 // withCredentials:true,
                 method:'GET',
             }).then(res=>{
