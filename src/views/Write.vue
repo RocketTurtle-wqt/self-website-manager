@@ -25,7 +25,7 @@
 </template>
 
 <script>
-import { server,getArticalById,publishPicture,publishArtical,updateArticalById } from "../config/net.js";
+import { server,getArticalById,publishPicture,publishArtical,updateArticalById,getClassifies } from "../config/net.js";
 
 export default {
   name:'Write',
@@ -115,7 +115,7 @@ export default {
   },
   mounted() {
     this.$axios({
-      url:`${server}/classifies`,
+      url:getClassifies,
       // withCredentials:true,
       method:'GET',
     }).then(res=>{

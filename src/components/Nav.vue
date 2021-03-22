@@ -1,8 +1,9 @@
 <template>
   <div id="nav">
     <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal" @select="handleSelect">
-      <el-menu-item v-for="(item, index) of content" :index="index.toString()" :key="index">
-        <router-link :to="item.route">{{item.name}}</router-link>
+      <el-menu-item v-for="(item, index) of content" :index="index.toString()" @click="skip(item.route)" :key="index">
+        {{item.name}}
+        <!-- <router-link :to="item.route">{{item.name}}</router-link> -->
       </el-menu-item>
     </el-menu>
   </div>
@@ -37,6 +38,9 @@ export default {
   methods: {
     handleSelect(key, keyPath) {
       console.log(key, keyPath);
+    },
+    skip(route){
+      this.$router.push(route);
     }
   }
 }

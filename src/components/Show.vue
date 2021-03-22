@@ -45,6 +45,7 @@ export default {
         this.$store.state.selectClassify=ownEle.filter(artical=>{
           return artical.id!==id;
         });
+        this.$toast.success(res.data);
       });
     }
   }
