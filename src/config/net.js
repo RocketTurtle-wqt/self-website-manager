@@ -1,4 +1,5 @@
-const server = 'http://192.168.3.28:7002';
+// const server = 'http://192.168.3.28:7002';
+const server = 'http://10.8.157.62:7002';
 const getArticalsByClassifyId = `${server}/artical/getArticalsByClassifyId`;
 const getArticalById = `${server}/artical/getArticalById`;
 const publishPicture = `${server}/artical/publishPicture`;

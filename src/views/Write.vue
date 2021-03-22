@@ -26,6 +26,7 @@
 
 <script>
 import { server,getArticalById,publishPicture,publishArtical,updateArticalById,getClassifies } from "../config/net.js";
+import 'mavon-editor/dist/markdown/github-markdown.min.css';
 
 export default {
   name:'Write',

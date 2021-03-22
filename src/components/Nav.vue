@@ -41,6 +41,9 @@ export default {
       console.log(key, keyPath);
     },
     skip(route){
+      if(route===this.$route.path){
+        return;
+      }
       this.$router.push(route);
     }
   }
