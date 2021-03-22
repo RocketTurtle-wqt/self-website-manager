@@ -1,7 +1,7 @@
 <template>
   <div id="nav">
-    <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal" @select="handleSelect">
-      <el-menu-item v-for="(item, index) of content" :index="index.toString()" @click="skip(item.route)" :key="index">
+    <el-menu :default-active="$route.path" class="el-menu-demo" mode="horizontal" @select="handleSelect">
+      <el-menu-item v-for="(item, index) of content" :index="item.route" @click="skip(item.route)" :key="index">
         {{item.name}}
         <!-- <router-link :to="item.route">{{item.name}}</router-link> -->
       </el-menu-item>
@@ -14,7 +14,8 @@ export default {
   name:"Nav",
   data() {
     return {
-      activeIndex: '0',
+      activeIndex:'0',
+      current: '',
       content:[
         {
           name:'文章管理',
