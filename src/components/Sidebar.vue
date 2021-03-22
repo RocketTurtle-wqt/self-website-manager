@@ -21,7 +21,7 @@
 </template>
 
 <script>
-import { server,getArticalsByClassifyId,getClassifies } from '../config/net.js';
+import { getArticalsByClassifyId,getClassifies } from '../config/net.js';
 
 export default {
   name:"Siderbar",

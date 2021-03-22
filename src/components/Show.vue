@@ -1,7 +1,7 @@
 <template>
   <div id="show">
     <el-collapse v-model="activeNames" @change="handleChange">
-      <el-collapse-item v-for="item in this.$store.state.selectClassify" :title="item.title" :name="item.id" :key="item.id">
+      <el-collapse-item v-for="item in articals" :title="item.title" :name="item.id" :key="item.id">
         <div id="mainBody">
           <div>
             <router-link :to="`/write/${item.id}`">编辑</router-link>
@@ -18,7 +18,11 @@
       class="bottom"
       background
       layout="prev, pager, next"
-      :total="pageNumber">
+      :current-page="currentPage"
+      :total="pageNumber"
+      @prev-click="prevPage"
+      @next-click="nextPage"
+      @current-change="pageChange">
     </el-pagination>
   </div>
 </template>
@@ -32,6 +36,7 @@ export default {
     data() {
     return {
       activeNames: ['1'],
+      currentPage: 1
     };
   },
   methods: {
@@ -53,16 +58,30 @@ export default {
         });
         this.$toast.success(res.data);
       });
+    },
+    prevPage(){
+      this.currentPage--;
+    },
+    nextPage(){
+      this.currentPage++;
+    },
+    pageChange(val){
+      this.currentPage=val;
     }
   },
   computed:{
     pageNumber(){
       const num=this.$store.state.selectClassify.length;
       if(num%6){
-        return (Math.floor(num/6)+1)*10;
+        return (Math.floor(num/5)+1)*10;
       }else{
-        return num/6*10;
+        return num/5*10;
       }
+    },
+    articals(){
+      let essays=this.$store.state.selectClassify;
+      essays=essays.slice((this.currentPage-1)*5,Math.min(this.currentPage*5,essays.length));
+      return essays;
     }
   }
 }
