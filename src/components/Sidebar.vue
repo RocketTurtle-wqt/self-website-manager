@@ -2,7 +2,8 @@
   <div id="siderbar">
     <el-menu  class="el-menu-vertical-demo"
               text-color="#303133"
-              active-text-color="#409EFF">
+              active-text-color="#409EFF"
+              default-active="0">
       <el-menu-item v-for="(item, index) in this.$store.state.classify" @click="setClassify(item.id)" :index="index.toString()" :key="item.id">
         <i class="el-icon-menu"></i>
         <span slot="title">{{item.name}}</span>
@@ -56,6 +57,7 @@ export default {
     }).then((res) => {
       console.log(res);
       this.$store.state.classify=res.data;
+      this.setClassify(res.data[0].id);
     });
   }
 }
