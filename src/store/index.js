@@ -9,7 +9,9 @@ export default new Vuex.Store({
     classify: [],
     selectClassify: [],
     showClassify: false,
-    issueLoding: false
+    issueLoding: false,
+    currentClassify: 0,
+    articalNumber:0
   },
   mutations: {
   },

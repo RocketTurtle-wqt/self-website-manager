@@ -21,7 +21,7 @@
 </template>
 
 <script>
-import { getArticalsByClassifyId,getClassifies } from '../config/net.js';
+import { getArticalNumberByClassifyId,getClassifies } from '../config/net.js';
 
 export default {
   name:"Siderbar",
@@ -33,15 +33,16 @@ export default {
   methods:{
     setClassify(classify_id){
       this.$axios({
-        url:getArticalsByClassifyId,
+        url:getArticalNumberByClassifyId,
         method:'GET',
         params:{
           classify_id
         }
       }).then(res=>{
-        console.log(res);
         console.log(res.data);
-        this.$store.state.selectClassify=res.data;
+        this.$store.state.currentClassify=classify_id;
+        this.$store.state.articalNumber=res.data.num;
+        this.$store.state.selectClassify=res.data.essays;
       }).catch(err=>{
         console.error(err);
       });

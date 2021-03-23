@@ -1,7 +1,7 @@
 <template>
   <div id="show">
     <el-collapse v-model="activeNames" @change="handleChange">
-      <el-collapse-item v-for="item in articals" :title="item.title" :name="item.id" :key="item.id">
+      <el-collapse-item v-for="item in this.$store.state.selectClassify" :title="item.title" :name="item.id" :key="item.id">
         <div id="mainBody">
           <div>
             <router-link :to="`/write/${item.id}`">编辑</router-link>
@@ -29,7 +29,7 @@
 
 <script>
 import "mavon-editor/dist/css/index.css";
-import {deleteArticalById} from '../config/net.js';
+import {deleteArticalById,getArticalsByClassifyIdAndPage} from '../config/net.js';
 
 export default {
   name:"show",
@@ -59,30 +59,43 @@ export default {
         this.$toast.success(res.data);
       });
     },
-    prevPage(){
-      this.currentPage--;
+    prevPage(val){
+      this.currentPage=val;
     },
-    nextPage(){
-      this.currentPage++;
+    nextPage(val){
+      this.currentPage=val;
     },
     pageChange(val){
       this.currentPage=val;
+      this.$axios({
+          url:getArticalsByClassifyIdAndPage,
+          // withCredentials:true,
+          method:'GET',
+          params:{
+            classify_id:this.$store.state.currentClassify,
+            page:this.currentPage
+          }
+        }).then(res=>{
+          this.$store.state.selectClassify=res.data;
+        }).catch(err=>{
+          console.error(err);
+        });
     }
   },
   computed:{
     pageNumber(){
-      const num=this.$store.state.selectClassify.length;
+      const num=this.$store.state.articalNumber;
       if(num%6){
         return (Math.floor(num/5)+1)*10;
       }else{
         return num/5*10;
       }
     },
-    articals(){
-      let essays=this.$store.state.selectClassify;
-      essays=essays.slice((this.currentPage-1)*5,Math.min(this.currentPage*5,essays.length));
-      return essays;
-    }
+    // articals(){
+    //   let essays=this.$store.state.selectClassify;
+    //   essays=essays.slice((this.currentPage-1)*5,Math.min(this.currentPage*5,essays.length));
+    //   return essays;
+    // }
   }
 }
 </script>
