@@ -5,7 +5,8 @@
               active-text-color="#409EFF"
               default-active="0">
       <el-menu-item v-for="(item, index) in this.$store.state.classify" @click="setClassify(item.id)" :index="index.toString()" :key="item.id">
-        <i class="el-icon-menu"></i>
+        <!-- <i class="el-icon-menu"></i> -->
+        <i class="el-icon-delete" @click="deleteClassify(item.id)"></i>
         <span slot="title">{{item.name}}</span>
       </el-menu-item>
     </el-menu>
@@ -21,7 +22,7 @@
 </template>
 
 <script>
-import { getArticalNumberByClassifyId,getClassifies } from '../config/net.js';
+import { getArticalNumberByClassifyId,getClassifies,deleteClassify } from '../config/net.js';
 
 export default {
   name:"Siderbar",
@@ -49,6 +50,25 @@ export default {
     },
     showClassify(){
       this.$store.state.showClassify=true;
+    },
+    deleteClassify(id){
+      console.log('-id-',id);
+      this.$axios({
+        url:deleteClassify,
+        method:'POST',
+        data:{
+          classify_id:id
+        },
+        header:{
+          'Content-type':'application/json'
+        }
+      }).then(res=>{
+        if(res.status===200){
+          this.$toast.success(res.data);
+        }
+      }).catch(err=>{
+        this.$toast.error(`分类删除失败，${err.response.data}`);
+      });
     }
   },
   mounted(){

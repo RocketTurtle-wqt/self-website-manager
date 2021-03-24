@@ -1,5 +1,5 @@
-const server = 'http://192.168.3.28:7002';
-// const server = 'http://10.8.157.62:7002';
+// const server = 'http://192.168.3.28:7002';
+const server = 'http://172.19.236.203:7002';
 const getArticalsByClassifyIdAndPage = `${server}/artical/getArticalsByClassifyIdAndPage`;
 const getArticalNumberByClassifyId = `${server}/artical/getArticalNumberByClassifyId`;
 const getArticalById = `${server}/artical/getArticalById`;
@@ -10,6 +10,7 @@ const deleteArticalById = `${server}/artical/deleteArticalById`;
 const getClassifies = `${server}/classify/getClassifies`;
 const getArticalfrequency = `${server}/frequency/getArticalfrequency`;
 const publishClassify = `${server}/classify/publishClassify`;
+const deleteClassify = `${server}/classify/deleteClassify`;
 
 export {
   server,
@@ -22,5 +23,6 @@ export {
   deleteArticalById,
   getClassifies,
   getArticalfrequency,
-  publishClassify
+  publishClassify,
+  deleteClassify
 }
