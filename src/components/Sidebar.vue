@@ -64,6 +64,9 @@ export default {
         }
       }).then(res=>{
         if(res.status===200){
+          this.$store.state.classify=this.$store.state.classify.filter(classify=>{
+            return classify.id!==id;
+          });
           this.$toast.success(res.data);
         }
       }).catch(err=>{

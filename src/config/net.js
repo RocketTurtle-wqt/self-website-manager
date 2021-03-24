@@ -8,9 +8,10 @@ const publishArtical = `${server}/artical/publishArtical`;
 const updateArticalById = `${server}/artical/updateArticalById`;
 const deleteArticalById = `${server}/artical/deleteArticalById`;
 const getClassifies = `${server}/classify/getClassifies`;
-const getArticalfrequency = `${server}/frequency/getArticalfrequency`;
 const publishClassify = `${server}/classify/publishClassify`;
 const deleteClassify = `${server}/classify/deleteClassify`;
+const getArticalfrequency = `${server}/frequency/getArticalfrequency`;
+const getAlldata = `${server}/echarts/getAlldata`;
 
 export {
   server,
@@ -22,7 +23,8 @@ export {
   updateArticalById,
   deleteArticalById,
   getClassifies,
-  getArticalfrequency,
   publishClassify,
-  deleteClassify
+  deleteClassify,
+  getArticalfrequency,
+  getAlldata
 }

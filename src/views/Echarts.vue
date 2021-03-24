@@ -3,10 +3,10 @@
         <el-row>
             <!-- <el-col :span="12">
                 <div id="chartColumn" style="width:500px; height:400px;"></div>
-            </el-col>
+            </el-col> -->
             <el-col :span="12">
                 <div id="chartBar" style="width:500px; height:400px;"></div>
-            </el-col> -->
+            </el-col>
             <el-col :span="12">
                 <div id="chartLine" style="width:500px; height:400px;"></div>
             </el-col>
@@ -19,19 +19,23 @@
  
 <script>
     import * as echarts from "echarts";
-    import {server,getArticalfrequency} from "../config/net.js"
+    import {getArticalfrequency,getAlldata} from "../config/net.js"
  
     export default {
         name:'Echarts',
         data() {
             return {
                 // chartColumn: null,
-                // chartBar: null,
+                chartBar: null,
                 chartLine: null,
                 // chartPie: null
                 articalFrequency:{
                     name:['文章发布频率'],
                     time:[],
+                    num:[]
+                },
+                row:{
+                    name:[],
                     num:[]
                 }
             }
@@ -41,63 +45,70 @@
             // drawColumnChart() {
             //     this.chartColumn = echarts.init(document.getElementById('chartColumn'));
             //     this.chartColumn.setOption({
-            //       title: { text: 'Column Chart' },
+            //       title: { text: '分类文章数' },
             //       tooltip: {},
             //       xAxis: {
             //           data: ["衬衫", "羊毛衫", "雪纺衫", "裤子", "高跟鞋", "袜子"]
             //       },
             //       yAxis: {},
             //       series: [{
-            //           name: '销量',
-            //           type: 'bar',
+            //         name: '文章数',
+            //         type: 'bar',
             //           data: [5, 20, 36, 10, 10, 20]
-            //         }]
+            //       }]
             //     });
             // },
-            // drawBarChart() {
-            //     this.chartBar = echarts.init(document.getElementById('chartBar'));
-            //     this.chartBar.setOption({
-            //         title: {
-            //             text: 'Bar Chart',
-            //             subtext: '数据来自网络'
-            //         },
-            //         tooltip: {
-            //             trigger: 'axis',
-            //             axisPointer: {
-            //                 type: 'shadow'
-            //             }
-            //         },
-            //         legend: {
-            //             data: ['2011年', '2012年']
-            //         },
-            //         grid: {
-            //             left: '3%',
-            //             right: '4%',
-            //             bottom: '3%',
-            //             containLabel: true
-            //         },
-            //         xAxis: {
-            //             type: 'value',
-            //             boundaryGap: [0, 0.01]
-            //         },
-            //         yAxis: {
-            //             type: 'category',
-            //             data: ['巴西', '印尼', '美国', '印度', '中国', '世界人口(万)']
-            //         },
-            //         series: [
-            //             {
-            //                 name: '2011年',
-            //                 type: 'bar',
-            //                 data: [18203, 23489, 29034, 104970, 131744, 630230]
-            //             },
-            //             {
-            //                 name: '2012年',
-            //                 type: 'bar',
-            //                 data: [19325, 23438, 31000, 121594, 134141, 681807]
-            //             }
-            //         ]
-            //     });
-            // },
+            drawBarChart() {
+                this.chartBar = echarts.init(document.getElementById('chartBar'));
+                this.chartBar.setOption({
+                    title: {
+                        text: '分类文章数',
+                        subtext: '数据来自数据库'
+                    },
+                    tooltip: {
+                        trigger: 'axis',
+                        axisPointer: {
+                            type: 'shadow'
+                        }
+                    },
+                    legend: {
+                        // data: ['2011年', '2012年']
+                        data:['数量']
+                    },
+                    grid: {
+                        left: '3%',
+                        right: '4%',
+                        bottom: '3%',
+                        containLabel: true
+                    },
+                    xAxis: {
+                        type: 'value',
+                        boundaryGap: [0, 0.01]
+                    },
+                    yAxis: {
+                        type: 'category',
+                        // data: ['巴西', '印尼', '美国', '印度', '中国', '世界人口(万)']
+                        data:this.row.name
+                    },
+                    series: [
+                        // {
+                        //     name: '2011年',
+                        //     type: 'bar',
+                        //     data: [18203, 23489, 29034, 104970, 131744, 630230]
+                        // },
+                        // {
+                        //     name: '2012年',
+                        //     type: 'bar',
+                        //     data: [19325, 23438, 31000, 121594, 134141, 681807]
+                        // }
+                        {
+                            name:'数量',
+                            type:'bar',
+                            data:this.row.num
+                        }
+                    ]
+                });
+            },
             drawLineChart() {
                 this.chartLine = echarts.init(document.getElementById('chartLine'));
                 this.chartLine.setOption({
@@ -197,25 +208,45 @@
             // },
             drawCharts() {
                 // this.drawColumnChart()
-                // this.drawBarChart()
+                this.drawBarChart()
                 this.drawLineChart()
                 // this.drawPieChart()
             },
         },
  
         mounted: function () {
+            // this.$axios({
+            //     url:getArticalfrequency,
+            //     // withCredentials:true,
+            //     method:'GET',
+            // }).then(res=>{
+            //     console.log(res);
+            //     for(let frequency of res.data){
+            //         this.articalFrequency.time.push(frequency.time);
+            //         this.articalFrequency.num.push(frequency.num);
+            //     }
+            //     this.drawCharts();
+            //     console.log(this.articalFrequency);
+            // }).catch(err=>{
+            //     console.error(err);
+            // });
             this.$axios({
-                url:getArticalfrequency,
+                url:getAlldata,
                 // withCredentials:true,
                 method:'GET',
             }).then(res=>{
                 console.log(res);
-                for(let frequency of res.data){
+                for(let frequency of res.data.articalfrequency){
                     this.articalFrequency.time.push(frequency.time);
                     this.articalFrequency.num.push(frequency.num);
                 }
+                for(let essay of res.data.classify){
+                    this.row.name.push(essay.name);
+                    this.row.num.push(essay.num);
+                }
+                console.log('1---',this.row.name);
+                console.log('2---',this.row.num);
                 this.drawCharts();
-                console.log(this.articalFrequency);
             }).catch(err=>{
                 console.error(err);
             });
