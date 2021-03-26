@@ -4,6 +4,7 @@ import Login from '../views/Login.vue'
 import Write from '../views/Write.vue'
 import Artical from '../views/Artical.vue'
 import Echarts from '../views/Echarts.vue';
+import Vlog from '../views/Vlog.vue';
 import Err from '../views/Error.vue'
 
 Vue.use(VueRouter)
@@ -32,6 +33,10 @@ const routes = [
   {
     path: '/traffic',
     component:Echarts
+  },
+  {
+    path: '/vlog',
+    component:Vlog
   },
   {
     path: '*',

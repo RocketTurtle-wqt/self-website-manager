@@ -10,6 +10,11 @@ import VueCookies from 'vue-cookies';
 import VueParticles from 'vue-particles';
 import VueToast from 'vue-toast-notification';
 import 'vue-toast-notification/dist/theme-sugar.css';
+import VueVideoPlayer from 'vue-video-player'
+// require videojs style
+import 'video.js/dist/video-js.css'
+import './assets/css/common.css';
+import 'vue-video-player/src/custom-theme.css'
 // import './config/highlight.js';
 
 import { Button, MenuItem, Menu, Dialog, Form, FormItem, Input, Select, Option, Collapse, CollapseItem, Divider, Row, Col, Pagination } from 'element-ui';
@@ -18,6 +23,10 @@ Vue.use(VueCookies);
 Vue.use(SIdentify);
 Vue.use(mavonEditor);
 Vue.use(VueToast);
+Vue.use(VueVideoPlayer, /* {
+  options: global default options,
+  events: global videojs events
+} */);
 //Vue.$toast.open({/* options */});
 let instance = Vue.$toast.open('You did it!');
 // Force dismiss specific toast
