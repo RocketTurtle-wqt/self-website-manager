@@ -4,7 +4,7 @@ import Login from '../views/Login.vue'
 import Write from '../views/Write.vue'
 import Artical from '../views/Artical.vue'
 import Echarts from '../views/Echarts.vue';
-// import Err from '../views/Error.vue'
+import Err from '../views/Error.vue'
 
 Vue.use(VueRouter)
 
@@ -12,6 +12,10 @@ const routes = [
   {
     path: '/',
     component:Login
+  },
+  {
+    path: '/404',
+    component:Err
   },
   {
     path: '/write',
@@ -28,11 +32,11 @@ const routes = [
   {
     path: '/traffic',
     component:Echarts
+  },
+  {
+    path: '*',
+    redirect: '/404',
   }
-  // {
-  //   path: '*',
-  //   component:Err
-  // }
 ]
 
 const router = new VueRouter({
