@@ -47,7 +47,7 @@ export default {
       }).then(res => {
         console.log(res);
         this.dialogFormVisible=false;
-        this.$store.state.showClassify=false;
+        this.$store.state.createClassifyDialog=false;
         if(res.status===200){
           console.log(res.data);
           this.$store.state.classify.push(res.data);
@@ -57,7 +57,7 @@ export default {
         console.log('进入catch');
         console.log(err.response);
         this.dialogFormVisible=false;
-        this.$store.state.showClassify=false;
+        this.$store.state.createClassifyDialog=false;
         if(err.response.status===409){
           this.$toast.error('创建分类失败，分类已存在');
         }
@@ -65,7 +65,7 @@ export default {
     }
   },
   watch:{
-    "$store.state.showClassify":{
+    "$store.state.createClassifyDialog":{
       handler(newVal){
         this.dialogFormVisible=newVal;
       }
@@ -73,7 +73,7 @@ export default {
     "dialogFormVisible":{
       handler(newVal){
         console.log("进入");
-        this.$store.state.showClassify=newVal;
+        this.$store.state.createClassifyDialog=newVal;
         this.$store.state.issueLoading=false;
       }
     }

@@ -72,7 +72,7 @@ export default {
           // withCredentials:true,
           method:'GET',
           params:{
-            classify_id:this.$store.state.currentClassify,
+            classify_id:this.$store.state.currentClassifyId,
             page:this.currentPage
           }
         }).then(res=>{

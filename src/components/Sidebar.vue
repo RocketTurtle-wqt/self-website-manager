@@ -4,10 +4,15 @@
               text-color="#303133"
               active-text-color="#409EFF"
               default-active="0">
-      <el-menu-item v-for="(item, index) in this.$store.state.classify" @click="setClassify(item.id)" :index="index.toString()" :key="item.id">
+      <!-- 待更改vuex中的state -->
+      <el-menu-item v-for="(item, index) in this.$store.state.classify" 
+                    @click="setClassify(item.id)" :index="index.toString()" 
+                    :key="item.id">
         <!-- <i class="el-icon-menu"></i> -->
-        <i class="el-icon-delete" @click="deleteClassify(item.id)"></i>
-        <span slot="title">{{item.name}}</span>
+        <el-tooltip class="item" effect="dark" content="删除分类" placement="top-start">
+          <i class="el-icon-delete" @click="deleteClassify(item.id)"></i>
+        </el-tooltip>
+        <span slot="title" class="font-addleft-instance">{{item.name}}</span>
       </el-menu-item>
     </el-menu>
     <el-menu  class="el-menu-vertical-demo"
@@ -15,7 +20,7 @@
               active-text-color="#409EFF">
       <el-menu-item @click="showClassify">
         <i class="el-icon-circle-plus-outline"></i>
-        <span slot="title">创建分类</span>
+        <span slot="title" class="font-addleft-instance">创建分类</span>
       </el-menu-item>
     </el-menu>
   </div>
@@ -26,11 +31,7 @@ import { getArticalNumberByClassifyId,getClassifies,deleteClassify } from '../co
 
 export default {
   name:"Siderbar",
-  data() {
-    return {
-
-    }
-  },
+  
   methods:{
     setClassify(classify_id){
       this.$axios({
@@ -41,18 +42,19 @@ export default {
         }
       }).then(res=>{
         console.log(res.data);
-        this.$store.state.currentClassify=classify_id;
+        this.$store.state.currentClassifyId=classify_id;
         this.$store.state.articalNumber=res.data.num;
         this.$store.state.selectClassify=res.data.essays;
       }).catch(err=>{
         console.error(err);
       });
     },
+
     showClassify(){
-      this.$store.state.showClassify=true;
+      this.$store.state.createClassifyDialog=true;
     },
+
     deleteClassify(id){
-      console.log('-id-',id);
       this.$axios({
         url:deleteClassify,
         method:'POST',
@@ -74,12 +76,12 @@ export default {
       });
     }
   },
+
   mounted(){
     this.$axios({
       url: getClassifies,
       method: 'GET',
     }).then((res) => {
-      console.log(res);
       this.$store.state.classify=res.data;
       this.setClassify(res.data[0].id);
     });
@@ -88,5 +90,9 @@ export default {
 </script>
 
 <style scoped>
-
+  .font-addleft-instance{
+    position: relative;
+    left: 20px;
+    text-align: right;
+  }
 </style>

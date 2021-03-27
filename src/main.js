@@ -17,7 +17,24 @@ import './assets/css/common.css';
 import 'vue-video-player/src/custom-theme.css'
 // import './config/highlight.js';
 
-import { Button, MenuItem, Menu, Dialog, Form, FormItem, Input, Select, Option, Collapse, CollapseItem, Divider, Row, Col, Pagination } from 'element-ui';
+import {
+  Button,
+  MenuItem,
+  Menu,
+  Dialog,
+  Form,
+  FormItem,
+  Input,
+  Select,
+  Option,
+  Collapse,
+  CollapseItem,
+  Divider,
+  Row,
+  Col,
+  Pagination,
+  Tooltip
+} from 'element-ui';
 
 Vue.use(VueCookies);
 Vue.use(SIdentify);
@@ -48,6 +65,7 @@ Vue.use(Collapse);
 Vue.use(CollapseItem);
 Vue.use(Divider);
 Vue.use(Pagination);
+Vue.use(Tooltip);
 Vue.use(VueParticles);
 Vue.config.productionTip = false
 Vue.prototype.$axios = axios;

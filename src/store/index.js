@@ -8,9 +8,9 @@ export default new Vuex.Store({
     loginStatus: false,
     classify: [],
     selectClassify: [],
-    showClassify: false,
+    createClassifyDialog: false,
     issueLoding: false,
-    currentClassify: 0,
+    currentClassifyId: 0,
     articalNumber:0
   },
   mutations: {

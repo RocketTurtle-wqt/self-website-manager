@@ -30,7 +30,7 @@ export default {
 
   #app{
     background: gray;
-    overflow: scroll;
+    /* overflow: scroll; */
   }
 
   html,body,#app{
