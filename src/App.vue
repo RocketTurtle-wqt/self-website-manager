@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <div id="background">
+    <div class="canvas-background">
       <vue-particles color="#dedede"></vue-particles>
     </div>
     <main>      
@@ -37,7 +37,7 @@ export default {
     height: 100%;
   }
 
-  #background{
+  .canvas-background{
     position: absolute;
     width: 100%;
     height: 100%;
