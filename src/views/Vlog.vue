@@ -1,9 +1,10 @@
 <template>
   <div id="vlog">
-    <div>
-      <video-player  class="video-player-box video-player vjs-custom-skin"
+    <div v-for="(item, index) in playerOptions" :key="index">
+      <video-player  
+                  class="video-player-box video-player vjs-custom-skin"
                   ref="videoPlayer"
-                  :options="playerOptions"
+                  :options="item"
                   :playsinline="true"
                   customEventName="customstatechangedeventname"
 
@@ -25,18 +26,64 @@ export default {
   name:'Vlog',
   data() {
     return {
-      playerOptions: {
-        // videojs options
-        muted: true,
-        language: 'en',
-        playbackRates: [0.7, 1.0, 1.5, 2.0],
-        sources: [{
-          type: "video/mp4",
-          src: "https://cdn.theguardian.tv/webM/2015/07/20/150716YesMen_synd_768k_vp8.webm"
-        }],
-        poster: "/static/images/author.jpg",
-        height:'300px',
-      }
+      playerOptions: [
+        {
+          // videojs options
+          muted: true,
+          language: 'en',
+          playbackRates: [0.7, 1.0, 1.5, 2.0],
+          sources: [
+            {
+              type: "video/mp4",
+              src: "https://cdn.theguardian.tv/webM/2015/07/20/150716YesMen_synd_768k_vp8.webm"
+            }
+          ],
+          poster: "../assets/images/404.jpeg",
+          height:'300px',
+        },
+        {
+          // videojs options
+          muted: true,
+          language: 'en',
+          playbackRates: [0.7, 1.0, 1.5, 2.0],
+          sources: [
+            {
+              type: "video/mp4",
+              src: "http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4"
+            }
+          ],
+          poster: "/static/images/author.jpg",
+          height:'300px',
+        },
+        {
+          // videojs options
+          muted: true,
+          language: 'en',
+          playbackRates: [0.7, 1.0, 1.5, 2.0],
+          sources: [
+            {
+              type: "video/mp4",
+              src: "http://vjs.zencdn.net/v/oceans.mp4"
+            }
+          ],
+          poster: "/static/images/author.jpg",
+          height:'300px',
+        },
+        {
+          // videojs options
+          muted: true,
+          language: 'en',
+          playbackRates: [0.7, 1.0, 1.5, 2.0],
+          sources: [
+            {
+              type: "video/mp4",
+              src: "https://media.w3.org/2010/05/sintel/trailer.mp4"
+            }
+          ],
+          poster: "/static/images/author.jpg",
+          height:'300px',
+        }
+      ]
     }
   },
   mounted() {
@@ -79,10 +126,17 @@ export default {
   #vlog{
     height: 100%;
     background-color: white;
+    box-sizing: border-box;
+    /* padding: 50px; */
+    display: flex;
+    justify-content: space-evenly;
+    flex-flow: row wrap;
+    overflow: scroll;
   }
 
   #vlog>div{
     width: 500px;
     height: 300px;
+    margin-top: 50px;
   }
 </style>
