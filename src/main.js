@@ -33,7 +33,8 @@ import {
   Row,
   Col,
   Pagination,
-  Tooltip
+  Tooltip,
+  Popover
 } from 'element-ui';
 
 Vue.use(VueCookies);
@@ -66,6 +67,7 @@ Vue.use(CollapseItem);
 Vue.use(Divider);
 Vue.use(Pagination);
 Vue.use(Tooltip);
+Vue.use(Popover);
 Vue.use(VueParticles);
 Vue.config.productionTip = false
 Vue.prototype.$axios = axios;

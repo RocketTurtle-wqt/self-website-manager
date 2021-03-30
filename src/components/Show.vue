@@ -6,7 +6,17 @@
           <div>
             <router-link :to="`/write/${item.id}`">编辑</router-link>
             <el-divider direction="vertical"></el-divider>
-            <span class="delete-essay" @click="deleteArtical(item.id)">删除</span>
+            <el-popover
+              placement="top"
+              width="160"
+              :ref="`popclick-${item.id}`">
+              <p>这是一段内容这是一段内容确定删除吗？</p>
+              <div style="text-align: right; margin: 0">
+                <el-button size="mini" type="text" @click="cancel(item.id)">取消</el-button>
+                <el-button type="primary" size="mini" @click="sure(item.id)">确定</el-button>
+              </div>
+              <span class="delete-essay" slot="reference">删除</span>
+            </el-popover>
             <el-divider direction="vertical"></el-divider>
             <span>{{item.time}}</span>
           </div>
@@ -36,7 +46,7 @@ export default {
 
   data() {
     return {
-      currentPage: 1
+      currentPage: 1,
     };
   },
 
@@ -57,6 +67,15 @@ export default {
         });
         this.$toast.success(res.data);
       });
+    },
+
+    sure(id){
+      console.log('进入');
+      this.deleteArtical(id);
+    },
+
+    cancel(id){
+      this.$refs[`popclick-${id}`][0].showPopper=false;
     },
 
     prevPage(val){
