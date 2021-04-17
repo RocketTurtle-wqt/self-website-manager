@@ -1,13 +1,14 @@
 <template>
   <div id="classify">
-    <el-dialog title="创建分类" :visible.sync="dialogFormVisible" :append-to-body="true">
+    <el-dialog title="创建分类" :visible.sync="$store.state.createClassifyDialog" :append-to-body="true">
       <el-form :model="form">
         <el-form-item label="文章分类" :label-width="formLabelWidth">
           <el-input v-model="form.name" autocomplete="off"></el-input>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
-        <el-button @click="dialogFormVisible = false">取 消</el-button>
+        <!-- <el-button @click="dialogFormVisible = false">取 消</el-button> -->
+        <el-button @click="quitClassifyDialog">取 消</el-button>
         <el-button type="primary" @click="submit">确 定</el-button>
       </div>
     </el-dialog>
@@ -15,13 +16,17 @@
 </template>
 
 <script>
-import { server,publishClassify } from '../config/net.js';
+import { publishClassify } from '../config/net.js';
+import {mapMutations} from 'vuex';
+import {
+  QUIT_CLASSIFY_DIALOG,
+  ADD_CLASSIFY
+} from '../config/mutation-types.js';
 
 export default {
   name:"Classify",
   data() {
     return {
-      dialogFormVisible: false,
       form: {
         name: '',
         region: '',
@@ -35,6 +40,11 @@ export default {
       formLabelWidth: '120px'
     }
   },
+  computed:{
+    // dialogFormVisible(){
+    //   return this.$store.state.createClassifyDialog;
+    // }
+  },
   methods:{
     submit(){
       let formdata = new FormData();
@@ -45,39 +55,33 @@ export default {
         data: formdata,
         headers: { 'Content-Type': 'multipart/form-data' },
       }).then(res => {
-        console.log(res);
-        this.dialogFormVisible=false;
-        this.$store.state.createClassifyDialog=false;
+        this[QUIT_CLASSIFY_DIALOG]();
         if(res.status===200){
-          console.log(res.data);
-          this.$store.state.classify.push(res.data);
+          this[ADD_CLASSIFY]({
+            newClassify:res.data
+          });
           this.$toast.success('创建分类成功');
         }
       }).catch(err=>{
-        console.log('进入catch');
-        console.log(err.response);
-        this.dialogFormVisible=false;
-        this.$store.state.createClassifyDialog=false;
+        this[QUIT_CLASSIFY_DIALOG]();
         if(err.response.status===409){
           this.$toast.error('创建分类失败，分类已存在');
         }
       });
-    }
-  },
-  watch:{
-    "$store.state.createClassifyDialog":{
-      handler(newVal){
-        this.dialogFormVisible=newVal;
-      }
     },
-    "dialogFormVisible":{
-      handler(newVal){
-        console.log("进入");
-        this.$store.state.createClassifyDialog=newVal;
-        this.$store.state.issueLoading=false;
-      }
-    }
-  }
+    ...mapMutations([
+      QUIT_CLASSIFY_DIALOG,
+      ADD_CLASSIFY
+    ])
+  },
+  // watch:{
+  //   "dialogFormVisible":{
+  //     handler(newVal){
+  //       this.$store.state.createClassifyDialog=newVal;
+  //       this.$store.state.issueLoading=false;
+  //     }
+  //   }
+  // }
 }
 </script>
 

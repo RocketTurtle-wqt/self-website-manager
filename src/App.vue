@@ -1,8 +1,8 @@
 <template>
   <div id="app">
-    <div class="canvas-background">
+    <!-- <div class="canvas-background">
       <vue-particles color="#dedede"></vue-particles>
-    </div>
+    </div> -->
     <main>      
       <nav class="top">
         <Nav></Nav>
