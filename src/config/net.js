@@ -1,6 +1,7 @@
-const server = 'http://192.168.3.28:7002';
+// const server = 'http://192.168.3.28:7002';
 // const server = 'http://172.19.236.203:7002';
 // const server = 'http://yxa738.natappfree.cc';
+const server = 'http://172.19.175.99:7002';
 const getArticalsByClassifyIdAndPage = `${server}/artical/getArticalsByClassifyIdAndPage`;
 const getArticalNumberByClassifyId = `${server}/artical/getArticalNumberByClassifyId`;
 const getArticalById = `${server}/artical/getArticalById`;

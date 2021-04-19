@@ -42,7 +42,7 @@ import "mavon-editor/dist/css/index.css";
 import {deleteArticalById,getArticalsByClassifyIdAndPage} from '../config/net.js';
 import {
   DELETE_ARTICAL,
-  SET_CLASSIFY
+  SET_SELECT_CLASSIFY
 } from '../config/mutation-types.js';
 import { mapMutations } from 'vuex';
 
@@ -104,15 +104,15 @@ export default {
           }
         }).then(res=>{
           // this.$store.state.selectClassify=res.data;
-          this[SET_CLASSIFY]({
-            classifies:res.data
+          this[SET_SELECT_CLASSIFY]({
+            essays:res.data
           });
         });
     },
 
     ...mapMutations([
       DELETE_ARTICAL,
-      SET_CLASSIFY
+      SET_SELECT_CLASSIFY
     ])
   },
 

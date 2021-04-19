@@ -6,11 +6,11 @@
               default-active="0">
       <!-- 待更改vuex中的state -->
       <el-menu-item v-for="(item, index) in this.$store.state.classify" 
-                    @click="setClassify(item.id)" :index="index.toString()" 
+                    @click="setCurrentClassify(item.id)" :index="index.toString()" 
                     :key="item.id">
         <!-- <i class="el-icon-menu"></i> -->
         <el-tooltip class="item" effect="dark" content="删除分类" placement="top-start">
-          <i class="el-icon-delete" @click="deleteClassify(item.id)"></i>
+          <i class="el-icon-delete" @click="deleteClickClassify(item.id)"></i>
         </el-tooltip>
         <span slot="title" class="font-addleft-instance">{{item.name}}</span>
       </el-menu-item>
@@ -49,7 +49,7 @@ export default {
   name:"Siderbar",
   
   methods:{
-    setClassify(classify_id){
+    setCurrentClassify(classify_id){
       this.$axios({
         url:getArticalNumberByClassifyId,
         method:'GET',
@@ -80,7 +80,7 @@ export default {
       this[OPEN_CLASSIFY_DIALOG]();
     },
 
-    deleteClassify(id){
+    deleteClickClassify(id){
       this.$axios({
         url:deleteClassify,
         method:'POST',
@@ -95,6 +95,7 @@ export default {
           // this.$store.state.classify=this.$store.state.classify.filter(classify=>{
           //   return classify.id!==id;
           // });
+          // console.log('siderbar',id);
           this[DELETE_CLASSIFY]({
             id
           });
@@ -120,11 +121,12 @@ export default {
       url: getClassifies,
       method: 'GET',
     }).then((res) => {
+      // this.$store.state.classify=res.data;
+      // console.log(res.data);
       this[SET_CLASSIFY]({
         classifies:res.data
       });
-      // this.$store.state.classify=res.data;
-      this.setClassify(res.data[0].id);
+      this.setCurrentClassify(res.data[0].id);
     });
   }
 }

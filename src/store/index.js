@@ -40,7 +40,7 @@ export default new Vuex.Store({
       });
     },
     [SET_CLASSIFY](state, payload) {
-      state.selectClassify = payload.classifies;
+      state.classify = payload.classifies;
     },
     [SET_CURRENT_CLASSIFY_ID](state, payload) {
       state.currentClassifyId = payload.id;
@@ -52,7 +52,8 @@ export default new Vuex.Store({
       state.selectClassify = payload.essays;
     },
     [DELETE_CLASSIFY](state, payload) {
-      state.classify = state.classify(classify => {
+      console.log('id---', payload.id);
+      state.classify = state.classify.filter(classify => {
         return classify.id !== payload.id;
       });
     }
