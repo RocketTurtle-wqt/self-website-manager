@@ -40,6 +40,11 @@
 <script>
 import "mavon-editor/dist/css/index.css";
 import {deleteArticalById,getArticalsByClassifyIdAndPage} from '../config/net.js';
+import {
+  DELETE_ARTICAL,
+  SET_CLASSIFY
+} from '../config/mutation-types.js';
+import { mapMutations } from 'vuex';
 
 export default {
   name:"Show",
@@ -61,16 +66,18 @@ export default {
         },
         headers: { 'Content-Type': 'application/json' },
       }).then(res => {
-        let ownEle=this.$store.state.selectClassify;
-        this.$store.state.selectClassify=ownEle.filter(artical=>{
-          return artical.id!==id;
+        // let ownEle=this.$store.state.selectClassify;
+        // this.$store.state.selectClassify=ownEle.filter(artical=>{
+        //   return artical.id!==id;
+        // });
+        this[DELETE_ARTICAL]({
+          id
         });
         this.$toast.success(res.data);
       });
     },
 
     sure(id){
-      console.log('进入');
       this.deleteArtical(id);
     },
 
@@ -96,9 +103,17 @@ export default {
             page:this.currentPage
           }
         }).then(res=>{
-          this.$store.state.selectClassify=res.data;
+          // this.$store.state.selectClassify=res.data;
+          this[SET_CLASSIFY]({
+            classifies:res.data
+          });
         });
-    }
+    },
+
+    ...mapMutations([
+      DELETE_ARTICAL,
+      SET_CLASSIFY
+    ])
   },
 
   computed:{

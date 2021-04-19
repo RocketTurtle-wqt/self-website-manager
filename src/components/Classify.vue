@@ -7,7 +7,6 @@
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
-        <!-- <el-button @click="dialogFormVisible = false">取 消</el-button> -->
         <el-button @click="quitClassifyDialog">取 消</el-button>
         <el-button type="primary" @click="submit">确 定</el-button>
       </div>
@@ -40,11 +39,6 @@ export default {
       formLabelWidth: '120px'
     }
   },
-  computed:{
-    // dialogFormVisible(){
-    //   return this.$store.state.createClassifyDialog;
-    // }
-  },
   methods:{
     submit(){
       let formdata = new FormData();
@@ -73,15 +67,7 @@ export default {
       QUIT_CLASSIFY_DIALOG,
       ADD_CLASSIFY
     ])
-  },
-  // watch:{
-  //   "dialogFormVisible":{
-  //     handler(newVal){
-  //       this.$store.state.createClassifyDialog=newVal;
-  //       this.$store.state.issueLoading=false;
-  //     }
-  //   }
-  // }
+  }
 }
 </script>
 
