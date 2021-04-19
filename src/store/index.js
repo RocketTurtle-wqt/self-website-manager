@@ -2,9 +2,14 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import {
   QUIT_CLASSIFY_DIALOG,
+  OPEN_CLASSIFY_DIALOG,
   ADD_CLASSIFY,
   DELETE_ARTICAL,
-  SET_CLASSIFY
+  SET_CLASSIFY,
+  SET_CURRENT_CLASSIFY_ID,
+  SET_ARTICAL_NUMBER,
+  SET_SELECT_CLASSIFY,
+  DELETE_CLASSIFY
 } from '../config/mutation-types.js';
 
 Vue.use(Vuex)
@@ -23,6 +28,9 @@ export default new Vuex.Store({
     [QUIT_CLASSIFY_DIALOG](state) {
       state.createClassifyDialog = false;
     },
+    [OPEN_CLASSIFY_DIALOG](state) {
+      state.createClassifyDialog = true;
+    },
     [ADD_CLASSIFY](state, payload) {
       state.classify.push(payload.newClassify);
     },
@@ -33,6 +41,20 @@ export default new Vuex.Store({
     },
     [SET_CLASSIFY](state, payload) {
       state.selectClassify = payload.classifies;
+    },
+    [SET_CURRENT_CLASSIFY_ID](state, payload) {
+      state.currentClassifyId = payload.id;
+    },
+    [SET_ARTICAL_NUMBER](state, payload) {
+      state.articalNumber = payload.num;
+    },
+    [SET_SELECT_CLASSIFY](state, payload) {
+      state.selectClassify = payload.essays;
+    },
+    [DELETE_CLASSIFY](state, payload) {
+      state.classify = state.classify(classify => {
+        return classify.id !== payload.id;
+      });
     }
   },
   actions: {

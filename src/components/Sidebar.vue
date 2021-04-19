@@ -27,7 +27,23 @@
 </template>
 
 <script>
-import { getArticalNumberByClassifyId,getClassifies,deleteClassify } from '../config/net.js';
+import { 
+  getArticalNumberByClassifyId,
+  getClassifies,deleteClassify 
+} from '../config/net.js';
+
+import { 
+  SET_CURRENT_CLASSIFY_ID,
+  SET_ARTICAL_NUMBER,
+  SET_SELECT_CLASSIFY,
+  OPEN_CLASSIFY_DIALOG,
+  DELETE_CLASSIFY,
+  SET_CLASSIFY
+} from '../config/mutation-types.js';
+
+import {
+  mapMutations
+} from 'vuex';
 
 export default {
   name:"Siderbar",
@@ -42,16 +58,26 @@ export default {
         }
       }).then(res=>{
         console.log(res.data);
-        this.$store.state.currentClassifyId=classify_id;
-        this.$store.state.articalNumber=res.data.num;
-        this.$store.state.selectClassify=res.data.essays;
+        // this.$store.state.currentClassifyId=classify_id;
+        // this.$store.state.articalNumber=res.data.num;
+        // this.$store.state.selectClassify=res.data.essays;
+        this[SET_CURRENT_CLASSIFY_ID]({
+          id:classify_id
+        });
+        this[SET_ARTICAL_NUMBER]({
+          num:res.data.num
+        });
+        this[SET_SELECT_CLASSIFY]({
+          essays:res.data.essays
+        })
       }).catch(err=>{
         console.error(err);
       });
     },
 
     showClassify(){
-      this.$store.state.createClassifyDialog=true;
+      // this.$store.state.createClassifyDialog=true;
+      this[OPEN_CLASSIFY_DIALOG]();
     },
 
     deleteClassify(id){
@@ -66,15 +92,27 @@ export default {
         }
       }).then(res=>{
         if(res.status===200){
-          this.$store.state.classify=this.$store.state.classify.filter(classify=>{
-            return classify.id!==id;
+          // this.$store.state.classify=this.$store.state.classify.filter(classify=>{
+          //   return classify.id!==id;
+          // });
+          this[DELETE_CLASSIFY]({
+            id
           });
           this.$toast.success(res.data);
         }
       }).catch(err=>{
         this.$toast.error(`分类删除失败，${err.response.data}`);
       });
-    }
+    },
+
+    ...mapMutations([
+      SET_CURRENT_CLASSIFY_ID,
+      SET_ARTICAL_NUMBER,
+      SET_SELECT_CLASSIFY,
+      OPEN_CLASSIFY_DIALOG,
+      DELETE_CLASSIFY,
+      SET_CLASSIFY
+    ])
   },
 
   mounted(){
@@ -82,7 +120,10 @@ export default {
       url: getClassifies,
       method: 'GET',
     }).then((res) => {
-      this.$store.state.classify=res.data;
+      this[SET_CLASSIFY]({
+        classifies:res.data
+      });
+      // this.$store.state.classify=res.data;
       this.setClassify(res.data[0].id);
     });
   }
