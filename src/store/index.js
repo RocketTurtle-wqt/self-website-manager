@@ -9,20 +9,21 @@ import {
   SET_CURRENT_CLASSIFY_ID,
   SET_ARTICAL_NUMBER,
   SET_SELECT_CLASSIFY,
-  DELETE_CLASSIFY
+  DELETE_CLASSIFY,
+  SET_LOGINSTATUS
 } from '../config/mutation-types.js';
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    loginStatus: false,
+    loginStatus: window.sessionStorage.getItem('loginStatus'),
     classify: [],
     selectClassify: [],
     createClassifyDialog: false,
     issueLoding: false,
     currentClassifyId: 0,
-    articalNumber:0
+    articalNumber: 0,
   },
   mutations: {
     [QUIT_CLASSIFY_DIALOG](state) {
@@ -38,6 +39,7 @@ export default new Vuex.Store({
       state.selectClassify = state.selectClassify.filter(artical => {
         return artical.id !== payload.id;
       });
+      
     },
     [SET_CLASSIFY](state, payload) {
       state.classify = payload.classifies;
@@ -56,6 +58,9 @@ export default new Vuex.Store({
       state.classify = state.classify.filter(classify => {
         return classify.id !== payload.id;
       });
+    },
+    [SET_LOGINSTATUS](state) {
+      state.loginStatus = true;
     }
   },
   actions: {

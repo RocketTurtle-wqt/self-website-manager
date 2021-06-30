@@ -27,8 +27,16 @@
 
 <script>
 import Sidentify from '../components/Identify';
-import Swal from 'sweetalert2'
-import { server } from "../config/net.js"
+import Swal from 'sweetalert2';
+import { 
+  login
+} from "../config/net";
+import {
+  SET_LOGINSTATUS
+} from '../config/mutation-types';
+import {
+  mapMutations
+} from 'vuex';
 
 export default {
   name:'Login',
@@ -60,7 +68,7 @@ export default {
         this.refreshCode();
       }else{
         this.$axios({
-          url:`${server}/login`,
+          url:login,
           // withCredentials:true,
           method:'GET',
           params:{
@@ -68,20 +76,28 @@ export default {
           }
         }).then(xhr=>{
           if(xhr.data===true){
+            window.sessionStorage.setItem('loginStatus',true);
+            this[SET_LOGINSTATUS]();
             this.$router.push('artical');
-            console.log(xhr.headers);
-            // console.log(this.$cookies.get("username"));
+          }else{
+            Swal.fire('密码错误', 'Something went wrong!', 'error');
           }
         }).catch(err=>{
           console.error(err);
         });
       }
-    }
+    },
+    ...mapMutations([
+      SET_LOGINSTATUS
+    ])
   },
   components:{
     Sidentify
   },
   mounted() {
+    if(window.sessionStorage.getItem('loginStatus')){
+      this.$router.push('artical');
+    }
     this.refreshCode();
   },
 }
@@ -101,7 +117,7 @@ export default {
     display: flex;
     flex-flow: column wrap;
     justify-content: space-around;
-    background: wheat;
+    background: rgba(190, 231, 233, 0.5);
     border-radius: 20px;
   }
   h1{
@@ -122,7 +138,7 @@ export default {
     height: 37px;
     box-sizing: border-box;
     padding-left: 10px;
-    background: tan;
+    background: rgba(190, 231, 233, 0.5);
     display: block;
     margin: 0 auto;
     margin-top: 10px;
@@ -139,7 +155,7 @@ export default {
     height: 37px;
     box-sizing: border-box;
     padding-left: 10px;
-    background: tan;
+    background: rgba(190, 231, 233, 0.5);
     margin-right: 1em;
   }
   #login_btn>button{
@@ -149,7 +165,7 @@ export default {
     width: 90px;
     height: 40px;
     border-radius: 45px;
-    background: #EE9C21;
+    background: rgba(160, 238, 225, 0.8);
     color: white;
   }
   #login_btn{
@@ -177,7 +193,7 @@ export default {
   }
 
   #login_btn>button:hover{
-    background: #F5BD68;
+    background: rgba(190, 237, 199, 0.8);
     cursor: pointer;
     box-shadow: 0 2px gray;
     transform: translateY(-1px);

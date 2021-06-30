@@ -1,7 +1,8 @@
 <template>
-  <div id="nav">
+  <div id="nav" v-show="this.$store.state.loginStatus">
     <el-menu :default-active="$route.path" class="el-menu-demo" mode="horizontal" @select="handleSelect">
-      <el-menu-item v-for="(item, index) of content" :index="item.route" @click="skip(item.route)" :key="index">
+      <el-menu-item v-for="(item, index) of content" :index="item.route" @click="skip(item.route)" 
+      :key="index">
         {{item.name}}
         <!-- <router-link :to="item.route">{{item.name}}</router-link> -->
       </el-menu-item>

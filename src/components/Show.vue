@@ -66,18 +66,16 @@ export default {
         },
         headers: { 'Content-Type': 'application/json' },
       }).then(res => {
-        // let ownEle=this.$store.state.selectClassify;
-        // this.$store.state.selectClassify=ownEle.filter(artical=>{
-        //   return artical.id!==id;
-        // });
-        this[DELETE_ARTICAL]({
-          id
+        let ownEle=this.$store.state.selectClassify;
+        this.$store.state.selectClassify=ownEle.filter(artical=>{
+          return artical.id!==id;
         });
         this.$toast.success(res.data);
       });
     },
 
     sure(id){
+      console.log('sure');
       this.deleteArtical(id);
     },
 
@@ -111,7 +109,7 @@ export default {
     },
 
     ...mapMutations([
-      DELETE_ARTICAL,
+      // DELETE_ARTICAL,
       SET_SELECT_CLASSIFY
     ])
   },

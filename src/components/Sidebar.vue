@@ -57,7 +57,7 @@ export default {
           classify_id
         }
       }).then(res=>{
-        console.log(res.data);
+        // console.log(res.data);
         // this.$store.state.currentClassifyId=classify_id;
         // this.$store.state.articalNumber=res.data.num;
         // this.$store.state.selectClassify=res.data.essays;
@@ -122,7 +122,7 @@ export default {
       method: 'GET',
     }).then((res) => {
       // this.$store.state.classify=res.data;
-      // console.log(res.data);
+      console.log(res.data);
       this[SET_CLASSIFY]({
         classifies:res.data
       });

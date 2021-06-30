@@ -29,7 +29,8 @@ export default {
   @import url(./assets/css/clear_mobile.css) all;
 
   #app{
-    background: gray;
+    background: gray url("./assets/images/background.jpeg") no-repeat;
+    background-size: cover;
     /* overflow: scroll; */
   }
 
@@ -50,6 +51,7 @@ export default {
     height: 90%;
     z-index: 2;
   }
+  
 
   .top{
     height: 10%;

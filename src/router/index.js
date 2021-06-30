@@ -21,22 +21,37 @@ const routes = [
   {
     path: '/write',
     component: Write,
+    meta: {
+      requireAuth: true
+    }
   },
   {
     path: '/write/:id',
-    component: Write
+    component: Write,
+    meta: {
+      requireAuth: true
+    }
   },
   {
     path: '/artical',
-    component:Artical
+    component: Artical,
+    meta: {
+      requireAuth: true
+    }
   },
   {
     path: '/traffic',
-    component:Echarts
+    component: Echarts,
+    meta: {
+      requireAuth: true
+    }
   },
   {
     path: '/vlog',
-    component:Vlog
+    component: Vlog,
+    meta: {
+      requireAuth: true
+    }
   },
   {
     path: '*',
@@ -48,6 +63,20 @@ const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
   routes
-})
+});
+
+//路由拦截
+router.beforeEach((to, from, next) => {
+  if (to.meta.requireAuth) {
+    console.log('进入');
+    if (window.sessionStorage.getItem('loginStatus')) {
+      next();
+    } else {
+      next({ path: '/' });
+    }
+  } else {
+    next();
+  }
+});
 
 export default router

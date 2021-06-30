@@ -7,6 +7,7 @@ const SET_CURRENT_CLASSIFY_ID = 'setCurrentClassifyId';
 const SET_ARTICAL_NUMBER = 'setArticalNumber';
 const SET_SELECT_CLASSIFY = 'setSelectClassify';
 const DELETE_CLASSIFY = 'deleteClassify';
+const SET_LOGINSTATUS = 'setLoginStatus';
 
 export {
   QUIT_CLASSIFY_DIALOG,
@@ -17,5 +18,6 @@ export {
   SET_CURRENT_CLASSIFY_ID,
   SET_ARTICAL_NUMBER,
   SET_SELECT_CLASSIFY,
-  DELETE_CLASSIFY
+  DELETE_CLASSIFY,
+  SET_LOGINSTATUS
 }
